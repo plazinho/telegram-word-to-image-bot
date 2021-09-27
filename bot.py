@@ -13,7 +13,7 @@ from api.utils.static_text import START, INFO
 
 # Логирование
 logging.basicConfig(filename='log.log',
-                    encoding='utf-8',
+#                   encoding='utf-8',
                     level=logging.INFO)
 
 # Загрузка токена через env
