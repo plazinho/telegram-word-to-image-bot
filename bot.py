@@ -8,7 +8,6 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
 from api.model import search_image
-
 from api.utils.static_text import START, INFO
 
 # Логирование
@@ -44,13 +43,13 @@ async def echo_message(message: types.Message):
     user_id = message.from_user.id
     user_name = message.from_user.full_name
     if message.content_type != 'text':
-        await bot.send_message(user_id, 'Пришлите текст - одно слово, другие типы данных не поддерживаются')
-    elif not txt.isalpha():
-        await bot.send_message(user_id, 'Пришлите одно слово, без цифр и специальных символов')
-    elif len(txt) > 10:
-        await bot.send_message(user_id, 'Пришлите одно слово длиной не более 10 символов')
+        await bot.send_message(user_id, 'Пришлите текст, другие типы данных не поддерживаются')
+#    elif not txt.isalpha():
+#        await bot.send_message(user_id, 'Пришлите одно слово, без цифр и специальных символов')
+    elif len(txt) > 18:
+        await bot.send_message(user_id, 'Пришлите текст длиной не более 18 символов')
     else:
-        logging.info(f'Нам написал {user_name}, его id = {user_id}')
+        logging.info(f'Нам написал {user_name} в {time.asctime()}, его id = {user_id}')
         await bot.send_photo(user_id, search_image(txt))
 
 
