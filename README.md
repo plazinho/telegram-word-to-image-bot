@@ -1,1 +1,1 @@
-# Simple word to image telegram bot
+# Simple text to image telegram bot
