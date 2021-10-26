@@ -8,11 +8,10 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
 from api.model import search_image
-from api.utils.static_text import START, INFO
+from api.utils.static_text import START, INFO, INPUT_ERROR
 
 # Логирование
 logging.basicConfig(filename='log.log',
-#                   encoding='utf-8',
                     level=logging.INFO)
 
 # Загрузка токена через env
@@ -42,16 +41,18 @@ async def echo_message(message: types.Message):
     txt = message.text
     user_id = message.from_user.id
     user_name = message.from_user.full_name
-    if message.content_type != 'text':
-        await bot.send_message(user_id, 'Пришлите текст, другие типы данных не поддерживаются')
-#    elif not txt.isalpha():
-#        await bot.send_message(user_id, 'Пришлите одно слово, без цифр и специальных символов')
-    elif len(txt) > 18:
+    if len(txt) > 18:
         await bot.send_message(user_id, 'Пришлите текст длиной не более 18 символов')
     else:
         logging.info(f'Нам написал {user_name} в {time.asctime()}, его id = {user_id}')
         await bot.send_photo(user_id, search_image(txt))
 
+
+# обработчик на случай, если был прислан не текст, а стикер, фото или любой другой тип данных
+@dp.message_handler(content_types='any')
+async def unknown_message(message: types.Message):
+    user_id = message.from_user.id
+    await bot.send_message(user_id, INPUT_ERROR)
 
 if __name__ == '__main__':
     executor.start_polling(dp)
