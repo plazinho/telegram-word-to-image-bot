@@ -1,5 +1,5 @@
 ## Simple image search telegram bot
-### Telegram bot name: @meme_ds_bot
+### Bot: [@meme_ds_bot](https://t.me/meme_ds_bot)
 - Telegram bot that returns search results(images) from Google
 - Deployed on [AWS](https://lightsail.aws.amazon.com/)
 
